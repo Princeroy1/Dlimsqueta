@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+
+    .driver-after {
+        border-bottom: 1px solid #ccc;
+    }
+    .position-relative {
+        position: relative;
+    }
+    h5{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .h5, h5 {
+        font-size: 14px;
+    }
+    .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.1;
+        /* color: inherit; */
+    }
+    h1, h2, h3, h4, h5, h6 {
+        clear: both;
+    }
+    .driver-after:before {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        border-bottom: 1px solid #e55b5b;
+        width: 125px;
+    }
+    input[type="text"] {
+        font-size: 14px;
+        font-weight: bold;
+        color: #666; 
+        border: 1px solid #ccc;
+        border-radius: 3px; 
+        padding: 3px;
+    }
+    .profile-image {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+    }
+    .center {
+         display: block; 
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+</style>
+{% if data %}
+{% for d in data %}
+
+
+<div id="page" class="wrap">
+
+    <div id="content" class="site-content">
+        <main id="main" class="site-main" role="main">
+
+                                    <div class="search-form-container"><br><br>
+                        <h4 style="font-weight: bold;">Driver's License information</h4><br>
+                        <input style="width: 100%;margin-bottom:15px" type="text" class="search-field" " value="{{d.cnic}}" name='search'  readonly>
+                        <br><br>
+                        <div class="text-center"><button type="submit" class="search-submit">Verify</button></div><br><br>
+                        
+                             <img src="{{ d.pic.url }}" class="center profile-image"><br>
+                             
+                    
+                        
+                        
+                        
+                        <h5 style="margin-top: 26px;" class="driver-after position-relative">Driver Information</h5>
+                        <h5 style="margin-top: 26px;"><span class="driverinfo"style="font-weight:bold">CNIC :</span> <span style="font-size: 14px;"> 
+                            {{d.cnic}}</span></h5>
+                        <h5 style="margin-top: 8px;"><span class="driverinfo"style="font-weight:bold">License Number :</span> <span style="font-size: 15px;"> {{d.Licence_number}}</span></h5>
+                        <h5 style="margin-top: 8px;"><span class="driverinfo"style="font-weight:bold">Driver Name :</span> <span style="font-size: 15px;"> {{d.Driver_name}}</span></h5>
+                        <h5 style="margin-top: 8px;"><span class="driverinfo"style="font-weight:bold">Father/Husband Name :</span> <span style="font-size: 15px;">{{d.Father_name}}  </span></h5>
+
+                        <h5 style="margin-top: 8px;"><span class="driverinfo"style="font-weight:bold">Allowed Vehicles :</span> <span style="font-size: 15px;"> {{d.Allowed_Vehcial}}</span></h5>
+
+                        <h5 style="margin-top: 8px;"><span class="driverinfo"style="font-weight:bold">State :</span> <span style="font-size: 15px;"> 
+                            {{d.state}}</span></h5>
+                        <h5 style="margin-bottom: 24px;"><span class="driverinfo"style="font-weight:bold">City :</span>  <span style="font-size: 15px;"> 
+                            {{d.city}} </span></h5>
+                        <h5 class="driver-after position-relative driverinfo"style="font-weight:bold">License Duration</h5>
+                        <h5 style="margin-top: 22px;"><span class="driverinfo"style="font-weight:bold">Issue Date :</span> <span style="font-size: 15px;">{{d.issue_date}}</span></h5>
+                        <h5><span class="driverinfo"style="font-weight:bold">Valid From :</span> <span style="font-size: 14px;">{{d.valid_from}}</span></h5>
+                        <h5 style="margin-bottom: 24px;"><span class="driverinfo"style="font-weight:bold">Valid To :</span> <span style="font-size: 15px;">{{d.valid_to}}</span></h5>
+                    </div>
+                                </main>
+
+    </div><!-- #content -->
+
+</div><!-- #page -->
+{% endfor %}
+{% else %}
+<div id="page" class="wrap">
+
+    <div id="content" class="site-content">
+        <main id="main" class="site-main" role="main">
+
+                                <h1 class="page-title" style="text-align: center;font-size: 4em;">Nothing Found</h1>
+                <p style="text-align: center;    font-size: 15px;">Sorry, but nothing matched your searched CNIC.</p>
+                <div class="search-form-container">
+
+                    <form role="search" method="Get" class="search-form clear" action="{% url 'search' %}">
+                        <input type="search" class="search-field" placeholder="Please Enter Your CNIC without dashes. e.g., (1111122222223)" value="" name="search" title="Please fill out this field.">
+
+                        <button type="submit" class="search-submit">Verify</button>
+                    </form>
+                </div><br><br>
+                            </main>
+
+    </div><!-- #content -->
+{% endif %}
+{% endblock content %}
